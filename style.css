@@ -1,0 +1,59 @@
+
+.header {
+	width: 100vw;
+    height: 145px;
+    border: 1px solid black;
+    background: rgb(255, 72, 79);
+}
+
+.game-logo {
+    display: inline-block;
+    width: 17%;
+    height: 73%;
+    margin-left: 3%;
+    margin-top: 2%;
+    border: 1px solid black;
+}
+
+.reset-button {
+    height: 16%;
+    width: 13%;
+    border: 1px solid black;
+    display: inline-block;
+    position: relative;
+    top: 45%;
+    left: 3%;
+}
+
+.header h1 {
+    display: inline-block;
+    position: absolute;
+    padding-left: 10%;
+    padding-top: 3%;
+    margin: 0px;
+    font-size: 52px;
+}
+
+.game-info {
+    height: 80vh;
+    width: 15%;
+    background: rgb(255, 72, 79);
+    border: 1px solid black;
+    margin-top: 2%;
+    margin-left: 2%;
+    padding-left: 2%;
+    display: inline-block;
+    float: left;
+}
+
+.game-area {
+    width: 60vw;
+    height: 85vh;
+    display: inline-block;
+    float: left;
+    background: rgb(255, 72, 79);
+    border: 1px solid black;
+    margin-top: 5%;
+    margin-right: 4%;
+    margin-left: 8%;
+}
