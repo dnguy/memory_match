@@ -22,10 +22,18 @@
                             //do stuff for 2nd click
                             if(my_card == $('#card_front' + card_number).attr('data-card')){
                                 console.log('they match');
+                                $('.card-hidden').addClass('card-match');
+                                
+                                    
                             }
                             else{
                                 console.log('they do not match');
-                            }
+                                setTimeout(function(){
+            
+                        $('.card-hidden').removeClass('card-hidden');
+                    }, 3000);
+                        }
+                            my_card = null
                         }
         }
         </script>
@@ -48,20 +56,39 @@
         <p>Accuracy:</p>
     </div>
     <div class="game-area">
-        <div class="card_container" id="card_container1">
-        <img class="card card-front" id="card_front1" data-card="charizard" src="images/charizard.png">
-        <img class="card card-back" id="card_back1" src="images/back-card.jpeg" onclick="card_click(1)">
-        </div>
-        <div class="card_container" id="card_container2">
-        <img class="card card-front" id="card_front2" data-card="charizard" src="images/charizard.png">
-        <img class="card card-back" id="card_back2" src="images/back-card.jpeg" onclick="card_click(2)">
-        </div>
-        <div class="card_container" id="card_container3">
-        <img class="card card-front" id="card_front3" data-card="charizard" src="images/charizard.png">
-        <img class="card card-back" id="card_back3" src="images/back-card.jpeg" onclick="card_click(3)">
-        </div>
-        
-        
+         <div class="card_container" id="card_container1">
+                    <img src="images/charizard.png" class="card card-front" id="card_front1" data-card="charizard">
+                    <img src="images/back-card.jpeg" class="card card-back" id="card_back1" 
+                    onclick="card_click(1)">
+                       
+                </div>
+                <div class="card_container" id="card_container2">
+                    <img src="images/charizard.png" class="card card-front" id="card_front2" data-card="charizard">
+                    <img src="images/back-card.jpeg" class="card card-back" id="card_back2" 
+                    onclick="card_click(2)">
+                    </div>
+
+                    <div class="card_container" id="card_container3">
+                    <img src="images/pikachu.jpg" class="card card-front" id="card_front3" data-card="pikachu">
+                    <img src="images/back-card.jpeg" class="card card-back" id="card_back3" 
+                    onclick="card_click(3)">
+                    </div>
+                     <div class="card_container" id="card_container4">
+                    <img src="images/pikachu.jpg" class="card card-front" id="card_front4" data-card="pikachu">
+                    <img src="images/back-card.jpeg" class="card card-back" id="card_back4" 
+                    onclick="card_click(4)">
+                    </div>
+                    <div class="card_container" id="card_container5">
+                    <img src="images/snorlax.jpg" class="card card-front" id="card_front5" data-card="snorlax">
+                    <img src="images/back-card.jpeg" class="card card-back" id="card_back5" 
+                    onclick="card_click(5)">
+                    </div>
+                    <div class="card_container" id="card_container6">
+                    <img src="images/snorlax.jpg" class="card card-front" id="card_front6" data-card="snorlax">
+                    <img src="images/back-card.jpeg" class="card card-back" id="card_back6" 
+                    onclick="card_click(6)">
+                    </div>
+                    </div>
         </div>
     </div>
 </body>
