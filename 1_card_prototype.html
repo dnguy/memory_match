@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <style>
+        .card_container{
+            position: relative;
+            display: inline-block;
+            background-color: red;
+            height: 150px;
+            width: 110px;
+        }
+        .card{
+            height: 150px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }
+        .card-front{
+            width: 110px;
+        }
+        .card-hidden{
+            display: none;
+        }
+    </style>
+    <script>
+        var my_card = null;
+        function card_click(card_number){
+            $('#card_back'+card_number).toggleClass('card-hidden');
+                        if(my_card==null)
+                        {
+                            console.log('first card was clicked, on card1, it was '+$('#card_front' + card_number).attr('data-card'));
+                            //do stuff for 1st click
+                            my_card = $('#card_front' + card_number).attr('data-card');
+                            
+                        }
+                        else 
+                        {
+                            console.log('second card was clicked, it was card 1, it was '+$('#card_front' + card_number).attr('data-card'));
+                            //do stuff for 2nd click
+                            if(my_card == $('#card_front' + card_number).attr('data-card')){
+                                console.log('they match');
+                                    
+                            }
+                            else{
+                                console.log('they do not match');
+                                setTimeout(function(){
+            
+                        $('.card-hidden').removeClass('card-hidden');
+                    }, 3000);
+                        }
+                        my_card = null
+
+                        }
+        }
+    </script>
+</head>
+<body>
+    <div class="content">
+        <div class="game_area">
+            <div class="card_row">
+                <div class="card_container" id="card_container1">
+                    <img src="https://raw.githubusercontent.com/Learning-Fuze/memory_match_c4/1_card_prototype/images/british_flag.jpg?token=ALRvn9ZidMePIbWEldgXJOvfIcplf82Aks5VSpx3wA%3D%3D" class="card card-front" id="card_front1" data-card="british flag">
+                    <img src="https://raw.githubusercontent.com/Learning-Fuze/memory_match_c4/1_card_prototype/images/card_design.png?token=ALRvn7-Odx7ai1lvvtQnE3yG3O64DWIpks5VSp3lwA%3D%3D" class="card card-back" id="card_back1" 
+                    onclick="card_click(1)">
+                       
+                </div>
+                <div class="card_container" id="card_container2">
+                    <img src="https://raw.githubusercontent.com/Learning-Fuze/memory_match_c4/1_card_prototype/images/british_flag.jpg?token=ALRvn9ZidMePIbWEldgXJOvfIcplf82Aks5VSpx3wA%3D%3D" class="card card-front" id="card_front2" data-card="british flag">
+                    <img src="https://raw.githubusercontent.com/Learning-Fuze/memory_match_c4/1_card_prototype/images/card_design.png?token=ALRvn7-Odx7ai1lvvtQnE3yG3O64DWIpks5VSp3lwA%3D%3D" class="card card-back" id="card_back2" 
+                    onclick="card_click(2)">
+                    </div>
+
+                    <div class="card_container" id="card_container3">
+                    <img src="https://raw.githubusercontent.com/Learning-Fuze/memory_match_c4/1_card_prototype/images/pets.jpg?token=ALRvn5Nt-O_t3QBcoOyUnn0WY4F5sXGgks5VS8GbwA%3D%3D" class="card card-front" id="card_front3" data-card="puppy">
+                    <img src="https://raw.githubusercontent.com/Learning-Fuze/memory_match_c4/1_card_prototype/images/card_design.png?token=ALRvn7-Odx7ai1lvvtQnE3yG3O64DWIpks5VSp3lwA%3D%3D" class="card card-back" id="card_back3" 
+                    onclick="card_click(3)">
+                    </div>
+                     <div class="card_container" id="card_container4">
+                    <img src="https://raw.githubusercontent.com/Learning-Fuze/memory_match_c4/1_card_prototype/images/pets.jpg?token=ALRvn5Nt-O_t3QBcoOyUnn0WY4F5sXGgks5VS8GbwA%3D%3D" class="card card-front" id="card_front4" data-card="puppy">
+                    <img src="https://raw.githubusercontent.com/Learning-Fuze/memory_match_c4/1_card_prototype/images/card_design.png?token=ALRvn7-Odx7ai1lvvtQnE3yG3O64DWIpks5VSp3lwA%3D%3D" class="card card-back" id="card_back4" 
+                    onclick="card_click(4)">
+                    </div>
+                    <div class="card_container" id="card_container5">
+                    <img src="https://raw.githubusercontent.com/Learning-Fuze/memory_match_c4/1_card_prototype/images/pets.jpg?token=ALRvn5Nt-O_t3QBcoOyUnn0WY4F5sXGgks5VS8GbwA%3D%3D" class="card card-front" id="card_front5" data-card="puppy">
+                    <img src="https://raw.githubusercontent.com/Learning-Fuze/memory_match_c4/1_card_prototype/images/card_design.png?token=ALRvn7-Odx7ai1lvvtQnE3yG3O64DWIpks5VSp3lwA%3D%3D" class="card card-back" id="card_back4" 
+                    onclick="card_click(5)">
+                    </div>
+                    <div class="card_container" id="card_container6">
+                    <img src="https://raw.githubusercontent.com/Learning-Fuze/memory_match_c4/1_card_prototype/images/pets.jpg?token=ALRvn5Nt-O_t3QBcoOyUnn0WY4F5sXGgks5VS8GbwA%3D%3D" class="card card-front" id="card_front6" data-card="puppy">
+                    <img src="https://raw.githubusercontent.com/Learning-Fuze/memory_match_c4/1_card_prototype/images/card_design.png?token=ALRvn7-Odx7ai1lvvtQnE3yG3O64DWIpks5VSp3lwA%3D%3D" class="card card-back" id="card_back6" 
+                    onclick="card_click(6)">
+                    </div>
+                    </div>
+                        
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+</script>
+</html>

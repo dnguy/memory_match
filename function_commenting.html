@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <style>
+        .card_container{
+            position: relative;
+            display: inline-block;
+            background-color: red;
+            height: 150px;
+            width: 110px;
+        }
+        .card{
+            height: 150px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }
+        .card-front{
+            width: 110px;
+        }
+        .card-hidden{
+            display: none;
+        }
+        .cards-matched{
+        }
+    </style>
+    <script>
+        //sets variable clicked_card equal to null because when we click a card we want to store that card's attr 'data-card' into the variable to check against the next card clicked.
+        var clicked_card = null;
+        //declares a function card_clicked which will take a parameter of card_number. The parameter will be an integer.
+        function card_click(card_number){
+            //logging the string "card_number" with the parameter card_number from the card_click function. 
+            console.log("card_number : ", card_number);
+            //sets var of cardBackId and cardFrontId equal to the parameter card_number with the id card_back and card_front. This is done by concatenating the string"#card_back" and "#card_front" with parameter card_number from the function card_clicked().
+            var cardBackId = "#card_back" + card_number;
+            var cardFrontId = "#card_front" + card_number;
+            //jQuery selector selecting the var cardBackId that was previously declared and adding a class of string 'card-hidden'. This class of 'card-hidden' will be called upon later when we want to invoke the css properties in this class.
+            $(cardBackId).addClass('card-hidden');
+            //set the var current_card_data equal to the jQuery selector of cardFrontId with a method of attr and string of 'data-card'.
+            var current_card_data = $(cardFrontId).attr('data-card');
+            //logging the string 'card_data' with the var current_card_data.
+            console.log("card_data : ", current_card_data);
+            //conditional statement that says if the var clicked_card is equal to null
+            if(clicked_card == null){
+                //log to the console the string "first card was clicked"
+                console.log("First card was clicked");
+                //set the var clicked_card to the var current_card_data. This lets the program know a card has been clicked and it now has a value of the var current_card_data.
+                clicked_card = current_card_data;
+                //if the if statement was false then we move on to the else statement to perform another action.
+            }else{
+                //log to the console "second card was clicked". This happens because the if statement above was fasle and the var clicked_card has a value that was set when the first card was clicked.
+                console.log("Second card was clicked");
+                //if statement with parameter if the var clicked_card is equal to current_data_card.
+                if(clicked_card === current_card_data){
+                    //logs to console that we have a match and the var clicked card is equal to current_card_data
+                    console.log("We have a match");
+                }else{
+                    //logs to console that there was no match because the var card_clicked is not equal to current_card_data
+
+                    console.log("No Match");
+                    //setTimeout to freeze the page and not let any other actions proceed for a certain amount of time.
+                    setTimeout(function(){
+                        //jQuery selector selecting class card_hidden and removing the class 'card-hidden' to remove the css properties pertaining to that class.
+                        $('.card-hidden').removeClass('card-hidden');
+                    }, 3000);
+                }
+            }
+            // if(my_card==null)
+            // {
+            //     console.log('first card was clicked, on card' + card_number + ', it was '+$('#card_front' + card_number).attr('data-card'));
+            //     my_card = $('#card_front' + card_number).attr('data-card');
+            // }
+            // else 
+            // {
+            //     console.log('second card was clicked, it was card ' + card_number+', it was '+$('#card_front1').attr('data-card'));
+            //     if(my_card == $('#card_front' + card_number).attr('data-card'))
+            //     {
+            //         console.log("we have a match");
+            //     }
+            //     else
+            //     {
+            //         console.log("we do not have a match");
+            //         alert('the cards did not match');
+            //         $('.card-hidden').toggleClass('card-hidden');
+            //     }
+            // }
+        }
+    </script>
+</head>
+<body>
+    <div class="content">
+        <div class="game_area">
+            <div class="card_row">
+                <div class="card_container" id="card_container1">
+                    <img src="images/british_flag.jpg" class="card card-front" id="card_front1" data-card="british flag">
+                    <img src="images/card_design.png" class="card card-back" id="card_back1" 
+                    onclick="card_click(1)"
+                    >
+                </div>
+                <div class="card_container" id="card_container2">
+                    <img src="images/british_flag.jpg" class="card card-front" id="card_front2" data-card="british flag">
+                    <img src="images/card_design.png" class="card card-back" id="card_back2" 
+                    onclick="card_click(2)"
+                    >
+                </div>
+                <div class="card_container" id="card_container3">
+                    <img src="images/pets.jpg" class="card card-front" id="card_front3" data-card="cute puppy">
+                    <img src="images/card_design.png" class="card card-back" id="card_back3" 
+                    onclick="card_click(3)"
+                    >
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+</script>
+</html>
