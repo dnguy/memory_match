@@ -1,10 +1,11 @@
 
 .header {
 	width: 100%;
-    height: 120px;
+    height: 148px;
     border: 4px solid black;
     color: white;
     background: black;
+    position: relative;
 }
 
 .game-logo {
@@ -13,35 +14,51 @@
     height: 73%;
     margin-left: 3%;
     margin-top: 1%;
+    position:relative;
     border: 1px solid black;
 }
 .pikachu-logo {
-    width: 80px;
+    width: 30%;
+}
+.charmander-logo {
+    width: 26%;
+}
+.squirtle-logo {
+    width:37%;
+    position:relative;
+    top: 12%;
+}
+.pokemon-logo {
+    width: 80%;
+}
+.title-logo {
+    display: inline-block;
+    position: absolute;
+    width: 26%;
+}
+.header button {
+    position: relative;
+    left: 36%;
+    top: 17%;
+      background: rgb(55, 87, 155);
+  color: rgb(255, 201, 69);
 }
 
-.reset-button {
-    height: 16%;
-    width: 13%;
-    border: 1px solid black;
-    display: inline-block;
-    position: relative;
-    top: 45%;
-    left: 26%;
-}
 
 .header h1 {
     display: inline-block;
     position: absolute;
-    padding-left: 9%;
-    padding-top: 3%;
+    padding-left: 22%;
+    padding-top: 4%;
     margin: 0px;
-    font-size: 2em;
+    font-size: 3em;
+    color: rgb(255, 201, 69);
 }
 
 .game-info {
     height: 80vh;
     width: 12vw;
-    background: rgb(255, 0, 11);
+    background: black;
     color: white;
     border: 4px solid black;
     margin-top: 2%;
@@ -76,13 +93,13 @@
     margin-top: 4%;
 }
 .card{
-    height: 170px;
+    height: 171px;
     position: absolute;
     left: 0px;
     top: 0px;
 }
 .card-front {
-    width: 109px;
+    width: 124px;
 
 }
 .card-hidden{

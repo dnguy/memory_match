@@ -44,6 +44,11 @@
                     my_card = null
                 }
         }
+        function gameReset() {
+            $('.card-hidden').removeClass('card-hidden');
+            $('.card-match').removeClass('card-match');
+            my_card=null
+        }
         </script>
 </head>
 
@@ -51,13 +56,16 @@
     <div class="header">
         <div class="game-logo">
                 <img class="pikachu-logo" src="images/pikachu-logo.png">
-                <img class="charmander-logo.png" src="images/charmander-logo">
+                <img class="charmander-logo" src="images/charmander-logo.png">
+                <img class="squirtle-logo" src="images/squirtle-logo.png">
             
         </div>
-        <div class="reset-button">
-            Reset Game
+        <div class="title-logo">
+            <img class="pokemon-logo" src="images/title-logo.png">
         </div>
-        <h1>Memory Match</h1>
+        <h1>Gotta Match Em' All</h1>
+        <button class="reset" onclick="gameReset()">Reset Game</button>
+
     </div>
     <div class="game-info">
         <h1>Stats:</h1>
@@ -79,12 +87,12 @@
                     </div>
 
                     <div class="card_container" id="card_container3">
-                    <img src="images/pikachu.jpg" class="card card-front" id="card_front3" data-card="pikachu">
+                    <img src="images/pikachu-logo.png" class="card card-front" id="card_front3" data-card="pikachu">
                     <img src="images/back-card.jpeg" class="card card-back" id="card_back3" 
                     onclick="card_click(3)">
                     </div>
                      <div class="card_container" id="card_container4">
-                    <img src="images/pikachu.jpg" class="card card-front" id="card_front4" data-card="pikachu">
+                    <img src="images/pikachu-logo.png" class="card card-front" id="card_front4" data-card="pikachu">
                     <img src="images/back-card.jpeg" class="card card-back" id="card_back4" 
                     onclick="card_click(4)">
                     </div>
@@ -149,12 +157,12 @@
                     onclick="card_click(16)">
                     </div>
                     <div class="card_container" id="card_container17">
-                    <img src="images/zapdos.jpg" class="card card-front" id="card_front17" data-card="zapdos">
+                    <img src="images/zapdos.png" class="card card-front" id="card_front17" data-card="zapdos">
                     <img src="images/back-card.jpeg" class="card card-back" id="card_back17" 
                     onclick="card_click(17)">
                     </div>
                     <div class="card_container" id="card_container18">
-                    <img src="images/zapdos.jpg" class="card card-front" id="card_front18" data-card="zapdos">
+                    <img src="images/zapdos.png" class="card card-front" id="card_front18" data-card="zapdos">
                     <img src="images/back-card.jpeg" class="card card-back" id="card_back18" 
                     onclick="card_click(18)">
                     </div>
