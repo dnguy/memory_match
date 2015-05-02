@@ -113,11 +113,11 @@
 }
 .card_back_selected{
     -webkit-transform: rotate3d(1,1,0,180deg);
-    -webkit-transition: .7s;
+    -webkit-transition: .6s;
 }
 .card_front_selected{
     -webkit-transform: rotate3d(1,1,0,0deg)!important;
-    -webkit-transition: .7s;
+    -webkit-transition: .6s;
 }
 .card-front, .card-back {
     position: absolute;
@@ -127,7 +127,7 @@
     height: 100%;
     width: 100%;
  -webkit-backface-visibility: hidden;
- -webkit-transition: .7s;
+ -webkit-transition: .6;
 }
 .card-front{
     -webkit-transform: rotate3d(1,1,0,180deg);
@@ -144,11 +144,11 @@
 .card-match-front{
     display: none;
     -webkit-transform: rotate3d(1,1,0,0deg)!important;
-    -webkit-transition: .7s;
+    -webkit-transition: .6s;
 }
 .card-match-back {
     display: none;
     -webkit-transform: rotate3d(1,1,0,180deg);
-    -webkit-transition: .7s;
+    -webkit-transition: .6s;
 
 }

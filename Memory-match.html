@@ -15,7 +15,7 @@
         function card_click(card_number){
             //if the global click variable is false, return
             if(can_click == false){
-                console.log("allow clicking")
+                console.log("disallow clicking")
                 return;
             }
             $('#card_back'+card_number).toggleClass('card_back_selected');
@@ -46,27 +46,28 @@
                         var a = accuracy.toFixed(0);
                         $('.accuracy').html(a + '%');
                     }
+                        can_click=false;
                         setTimeout(function(){
                             $('.card_front_selected').addClass('card-match-front');
                         $('.card_back_selected').addClass('card-match-back');
+                            can_click=true;
+                        }, 900);
 
-                        }, 850);
                         
                     }
                     else{
+                        can_click=false;
                         if (successful_attempts >= 0) {
                         accuracy = (successful_attempts/attempts * 100);
                         var a = accuracy.toFixed(0);
                         $('.accuracy').html(a + '%');
                         }
                         console.log('they do not match');
-                        can_click=false;
-                        console.log("can click was turned off");
+                        
                         setTimeout(function(){
-                            console.log("class was removed")
                             $('.card_front_selected').removeClass('card_front_selected');
                             $('.card_back_selected').removeClass('card_back_selected');
-                            can_click = true;
+                            can_click=true;
                         }, 1000);
 
                 }
@@ -126,12 +127,12 @@
                     </div>
 
                     <div class="card_container" id="card_container3">
-                    <img src="images/pikachu-logo.png" class="card card-front" id="card_front3" data-card="pikachu">
+                    <img src="images/pikachu.jpeg" class="card card-front" id="card_front3" data-card="pikachu">
                     <img src="images/back-card.jpeg" class="card card-back" id="card_back3" 
                     onclick="card_click(3)">
                     </div>
                      <div class="card_container" id="card_container4">
-                    <img src="images/pikachu-logo.png" class="card card-front" id="card_front4" data-card="pikachu">
+                    <img src="images/pikachu.jpeg" class="card card-front" id="card_front4" data-card="pikachu">
                     <img src="images/back-card.jpeg" class="card card-back" id="card_back4" 
                     onclick="card_click(4)">
                     </div>
@@ -196,12 +197,12 @@
                     onclick="card_click(16)">
                     </div>
                     <div class="card_container" id="card_container17">
-                    <img src="images/zapdos.png" class="card card-front" id="card_front17" data-card="zapdos">
+                    <img src="images/zapdos.jpg" class="card card-front" id="card_front17" data-card="zapdos">
                     <img src="images/back-card.jpeg" class="card card-back" id="card_back17" 
                     onclick="card_click(17)">
                     </div>
                     <div class="card_container" id="card_container18">
-                    <img src="images/zapdos.png" class="card card-front" id="card_front18" data-card="zapdos">
+                    <img src="images/zapdos.jpg" class="card card-front" id="card_front18" data-card="zapdos">
                     <img src="images/back-card.jpeg" class="card card-back" id="card_back18" 
                     onclick="card_click(18)">
                     </div>
