@@ -18,7 +18,8 @@
                 console.log("allow clicking")
                 return;
             }
-            $('#card_back'+card_number).toggleClass('card-hidden');
+            $('#card_back'+card_number).toggleClass('card_back_selected');
+            $('#card_front'+card_number).toggleClass('card_front_selected');
                 if(my_card==null)
                 {
                     console.log('first card was clicked, on card1, it was '+$('#card_front' + card_number).attr('data-card'));
@@ -45,7 +46,9 @@
                         var a = accuracy.toFixed(0);
                         $('.accuracy').html(a + '%');
                     }
-                        $('.card-hidden').addClass('card-match'); 
+                        $('.card_front_selected').addClass('card-match');
+                        $('.card_back_selected').addClass('card-match');
+
 
                     }
                     else{
@@ -58,20 +61,22 @@
                         can_click=false;
                         console.log("can click was turned off");
                         setTimeout(function(){
-                            $('.card-hidden').removeClass('card-hidden');
+                            console.log("class was removed")
+                            $('.card_front_selected').removeClass('card_front_selected');
+                            $('.card_back_selected').removeClass('card_back_selected');
                             can_click = true;
-                        }, 1000);
+                        }, 2000);
 
                 }
                     my_card = null
                 }
         }
         function gameReset() {
-            $('.card-hidden').removeClass('card-hidden');
+            $('.card_front_selected').removeClass('card_front_selected');
+            $('.card_back_selected').removeClass('card_back_selected');
             $('.card-match').removeClass('card-match');
             my_card=null
             successful_attempts = 0;
-            a = 0;
             attempts = 0;
             accuracy = 0;
             $('.attempts').html('000')
