@@ -142,12 +142,12 @@
     display: none;
 }
 .card-match-front{
-    display: none;
+    opacity: 0;
     -webkit-transform: rotate3d(1,1,0,0deg)!important;
     -webkit-transition: .6s;
 }
 .card-match-back {
-    display: none;
+    opacity: 0;
     -webkit-transform: rotate3d(1,1,0,180deg);
     -webkit-transition: .6s;
 

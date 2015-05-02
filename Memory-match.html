@@ -11,42 +11,60 @@
         var attempts = 0;
         var successful_attempts = 0;
         var accuracy = 0.0;
+        var start_time = null
         //make a global variable indicating I can click again
         function card_click(card_number){
             //if the global click variable is false, return
             if(can_click == false){
                 console.log("disallow clicking")
                 return;
-            }
+            }//toggles the cards chosen to new classes which will reveal the animation of card flipping.
             $('#card_back'+card_number).toggleClass('card_back_selected');
             $('#card_front'+card_number).toggleClass('card_front_selected');
+                //If conditional checking if my_card==null to let the program know if this is the first card chosen.
                 if(my_card==null)
-                {
+                {   
+                    
                     console.log('first card was clicked, on card1, it was '+$('#card_front' + card_number).attr('data-card'));
-                    //do stuff for 1st click
+                    //if my_card was equal to null then the variable my_card is now set equal to the attr. of the card that was clicked.
                     my_card = $('#card_front' + card_number).attr('data-card');
+                    //turning off click because i was able to create a "match" by double clicking very quickly on the first card. 
+                    can_click=false;
+                        setTimeout(function(){
+                            can_click=true;
+                        },200);
+
                     
                 }
                 else 
-                {
+                {   //adds + 1 to the var attempts which will be used later when calcuated number of tries and accuracy.
                     attempts = attempts + 1;
+                    //conditional statement that checks if the number of attemps is greater than 0.
                     if (attempts > 0) {
+                    //if attempts is greater than 0 then it will log to the console how many attempts have occurred.
                     console.log('attempts is equal to : ' + attempts)
+                    //jQuery selector which will change the the html .attempts with the variable attempts.
                     $('.attempts').html(attempts);
                     }
-
-                    console.log("They have attempted : " + attempts + " tries.")
+                    //logging to console that the second card was clicked and what attr. the card was.
                     console.log('second card was clicked, it was card 1, it was '+$('#card_front' + card_number).attr('data-card'));
-                    //do stuff for 2nd click
+                    //conditional statement checking if the second card attr. was equal to the first card attr.
                     if(my_card == $('#card_front' + card_number).attr('data-card')){
+                        //logging to the console that both cards have a matching my_card variable.
                         console.log('they match');
+                        //adding 1 to successful_attempts variable which occurs everytime there is a match.
                         successful_attempts += 1;
+                        //conditional statement checking to see if the variable successful_attempts is greater than 0.
                         if (successful_attempts > 0) {
+                        //if successful_attempts is greater than 0 then the accuracy variable calculates the number of successful_attempts divided by the number of attempts and multiplies by 100 to get a percentage.
                         accuracy = (successful_attempts/attempts * 100);
+                        //var a converts the variable accuracy to have no decimals.
                         var a = accuracy.toFixed(0);
+                        //jQuery selector to add the variable a with '%' to the html class .accuracy.
                         $('.accuracy').html(a + '%');
-                    }
+                    }   //setting can_click equal to false so that no clicking can occur during the setTimeout function. 
                         can_click=false;
+                        //created this setTimeout function so that the cards were not disappearing too fast after being matched. Gives the player a chance to see the matched cards before they fade out.
                         setTimeout(function(){
                             $('.card_front_selected').addClass('card-match-front');
                         $('.card_back_selected').addClass('card-match-back');
@@ -56,25 +74,29 @@
                         
                     }
                     else{
+                        //sets can_click equal to false to that you are not allowed to click again until both cards flip back over.
                         can_click=false;
+                        //conditional statement that checks to see if successful_attempts is equal to or greater than 0.
                         if (successful_attempts >= 0) {
+                        //if greater than or equal to zero then the variable accuracy will be set equal to successful_attempts divided by attempts and logged into .accuracy html.
                         accuracy = (successful_attempts/attempts * 100);
                         var a = accuracy.toFixed(0);
                         $('.accuracy').html(a + '%');
                         }
                         console.log('they do not match');
-                        
+                        //timeout function used so the mismatched cards are not immediately flipped back.
                         setTimeout(function(){
                             $('.card_front_selected').removeClass('card_front_selected');
                             $('.card_back_selected').removeClass('card_back_selected');
                             can_click=true;
                         }, 1000);
 
-                }
+                }   //sets my_card variable back to null so the next "first" card choice will be stored into the my_card variable.
                     my_card = null
                 }
         }
         function gameReset() {
+            //removes all classes that have a css flip effect so that all cards will be flipped back when reset.
             $('.card-match-front').removeClass('card-match-front');
             $('.card-match-back').removeClass('card-match-back');
             $('.card_front_selected').removeClass('card_front_selected');
