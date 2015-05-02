@@ -73,6 +73,13 @@
     line-height: 500%;
     font-size: 17px;
 }
+.game-info > .attempts {
+    position:relative;
+    bottom: 4%;
+    font-size: 25px;
+    left: 32%;
+
+}
 
 .game-area {
     width: 72vw;
