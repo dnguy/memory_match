@@ -46,10 +46,12 @@
                         var a = accuracy.toFixed(0);
                         $('.accuracy').html(a + '%');
                     }
-                        $('.card_front_selected').addClass('card-match');
-                        $('.card_back_selected').addClass('card-match');
+                        setTimeout(function(){
+                            $('.card_front_selected').addClass('card-match-front');
+                        $('.card_back_selected').addClass('card-match-back');
 
-
+                        }, 850);
+                        
                     }
                     else{
                         if (successful_attempts >= 0) {
@@ -65,16 +67,17 @@
                             $('.card_front_selected').removeClass('card_front_selected');
                             $('.card_back_selected').removeClass('card_back_selected');
                             can_click = true;
-                        }, 2000);
+                        }, 1000);
 
                 }
                     my_card = null
                 }
         }
         function gameReset() {
+            $('.card-match-front').removeClass('card-match-front');
+            $('.card-match-back').removeClass('card-match-back');
             $('.card_front_selected').removeClass('card_front_selected');
             $('.card_back_selected').removeClass('card_back_selected');
-            $('.card-match').removeClass('card-match');
             my_card=null
             successful_attempts = 0;
             attempts = 0;
