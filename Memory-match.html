@@ -40,11 +40,20 @@
                     if(my_card == $('#card_front' + card_number).attr('data-card')){
                         console.log('they match');
                         successful_attempts += 1;
-                        accuracy = (successful_attempts/attempts * 100 + '%')
+                        if (successful_attempts > 0) {
+                        accuracy = (successful_attempts/attempts * 100);
+                        var a = accuracy.toFixed(0);
+                        $('.accuracy').html(a + '%');
+                    }
                         $('.card-hidden').addClass('card-match'); 
 
                     }
                     else{
+                        if (successful_attempts >= 0) {
+                        accuracy = (successful_attempts/attempts * 100);
+                        var a = accuracy.toFixed(0);
+                        $('.accuracy').html(a + '%');
+                        }
                         console.log('they do not match');
                         can_click=false;
                         console.log("can click was turned off");
@@ -61,6 +70,12 @@
             $('.card-hidden').removeClass('card-hidden');
             $('.card-match').removeClass('card-match');
             my_card=null
+            successful_attempts = 0;
+            a = 0;
+            attempts = 0;
+            accuracy = 0;
+            $('.attempts').html('000')
+            $('.accuracy').html('100%')
         }
 
         </script>

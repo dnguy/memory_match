@@ -80,6 +80,12 @@
     left: 32%;
 
 }
+.game-info > .accuracy {
+    position: relative;
+    left: 28%;
+    font-size: 25px;
+    bottom: 4%;
+}
 
 .game-area {
     width: 72vw;
@@ -107,8 +113,8 @@
 }
 .card-front {
     width: 124px;
-
 }
+    
 .card-hidden{
     display: none;
 }
