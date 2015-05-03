@@ -70,7 +70,11 @@
                         $('.card_back_selected').addClass('card-match-back');
                             can_click=true;
                         }, 900);
-
+                        if (successful_attempts == 9) {
+                            setTimeout(function(){
+                            alert("Congratulations! You are now a Pokemon Master!")
+                        }, 1400);
+                        }
                         
                     }
                     else{
@@ -108,7 +112,7 @@
             $('.attempts').html('000')
             $('.accuracy').html('100%')
         }
-
+           
         </script>
 </head>
 
