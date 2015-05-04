@@ -28,11 +28,11 @@
                     console.log('first card was clicked, on card1, it was '+$('#card_front' + card_number).attr('data-card'));
                     //if my_card was equal to null then the variable my_card is now set equal to the attr. of the card that was clicked.
                     my_card = $('#card_front' + card_number).attr('data-card');
-                    //turning off click because i was able to create a "match" by double clicking very quickly on the first card. 
+                    //turning off click because i was able to create a "match" by constantly clicking very quickly on the first card. 
                     can_click=false;
                         setTimeout(function(){
                             can_click=true;
-                        },200);
+                        },600);
 
                     
                 }
@@ -124,10 +124,7 @@
                 <img class="squirtle-logo" src="images/squirtle-logo.png">
             
         </div>
-        <div class="title-logo">
-            <img class="pokemon-logo" src="images/title-logo.png">
-        </div>
-        <h1>Gotta Match Em' All</h1>
+        <h1> Pokemon: Gotta Match Em' All</h1>
         <button class="reset" onclick="gameReset()">Reset Game</button>
 
     </div>
