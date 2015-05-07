@@ -11,6 +11,7 @@
         var attempts = 0;
         var successful_attempts = 0;
         var accuracy = 0.0;
+        var seconds = 0;
         var start_time = null;
         var end_time = null;
         //make a global variable indicating I can click again
@@ -131,11 +132,40 @@
     $(".start_game").hide('slow');
     $(".card").show('slow');
 }
-           
+
+function secondPassed() {
+    var minutes = Math.round(seconds/60);
+    var remainingSeconds = seconds % 60;
+         if(seconds > 59 && remainingSeconds > 9){
+        seconds++;
+        $('#countdown').html(minutes + ":" + remainingSeconds);
+    }
+    else if (seconds > 59){
+        seconds++;
+        $('#countdown').html(minutes + ":0" + remainingSeconds);
+    }
+
+    else if(seconds >9){
+        ++seconds;
+        $('#countdown').html("0:" + seconds);
+    }
+
+    else if (seconds >= 0) {
+        seconds++;
+        $('#countdown').html("0:0" + seconds);
+
+    }
+}
+ 
+var countdownTimer = setInterval('secondPassed()', 1000);
+        
         </script>
 </head>
 
 <body>
+<audio autoplay>
+    <source src="pokemon.mp3" type="audio/mpeg">
+</audio>
 <img class="background_image" src="images/pokeball.png">
     <div class="header">
         <div class="game-logo">
@@ -151,7 +181,7 @@
     <div class="game-info">
         <h1>Stats:</h1>
         <p>Time played:</p>
-        <div class="time">0:00</div>
+        <div id="countdown" class="time">0:00</div>
         <p >Number of tries:</p>
         <div class="attempts">000</div>
         <p>Accuracy:</p>
