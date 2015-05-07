@@ -11,10 +11,15 @@
         var attempts = 0;
         var successful_attempts = 0;
         var accuracy = 0.0;
-        var start_time = null
+        var start_time = null;
+        var end_time = null;
         //make a global variable indicating I can click again
         function card_click(card_number){
             //if the global click variable is false, return
+            if (start_time == null) {
+                start_time = new Date;
+                console.log(start_time)
+            }
             if(can_click == false){
                 console.log("disallow clicking")
                 return;
@@ -71,6 +76,13 @@
                             can_click=true;
                         }, 900);
                         if (successful_attempts == 9) {
+                            end_time = new Date;
+                            console.log(end_time);
+                            function getElapsedTime(){
+                                if (end_time != null)
+                                    console.log(end_time-start_time);
+                            }
+
                             setTimeout(function(){
                             alert("Congratulations! You are now a Pokemon Master!")
                         }, 1400);
@@ -111,12 +123,20 @@
             accuracy = 0;
             $('.attempts').html('000')
             $('.accuracy').html('100%')
+            $(".card").hide('slow');
+            $(".start_game").show('slow');
         }
+        
+        function game_start(){
+    $(".start_game").hide('slow');
+    $(".card").show('slow');
+}
            
         </script>
 </head>
 
 <body>
+<img class="background_image" src="images/pokeball.png">
     <div class="header">
         <div class="game-logo">
                 <img class="pikachu-logo" src="images/pikachu-logo.png">
@@ -131,10 +151,15 @@
     <div class="game-info">
         <h1>Stats:</h1>
         <p>Time played:</p>
+        <div class="time">0:00</div>
         <p >Number of tries:</p>
         <div class="attempts">000</div>
         <p>Accuracy:</p>
         <div class="accuracy">100%</div>
+    </div>
+    <div onclick="game_start()" class="start_game">
+    <p>Click to release the Pokemon!</p>
+    <img class="pokeball" src="images/pokeball_start.png">
     </div>
     <div class="game-area">
          <div class="card_container" id="card_container1">
