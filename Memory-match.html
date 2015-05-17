@@ -11,9 +11,8 @@
     var attempts = 0;
     var successful_attempts = 0;
     var accuracy = 0.0;
-    var seconds = 0;
-    var start_time = null;
-    var end_time = null;
+    var timeStart = false;
+    var timeArray = [0, 0, 0]
     var imgArray = ['charizard.png', 'charizard.png', 'pikachu.jpeg', 'pikachu.jpeg', 'snorlax.jpg', 'snorlax.jpg', 'mewtwo.png', 'mewtwo.png', 'venusaur.jpg', 'venusaur.jpg', 'blastoise.jpeg', 'blastoise.jpeg', 'meowth.jpeg', 'meowth.jpeg', 'jigglypuff.jpeg', 'jigglypuff.jpeg', 'zapdos.jpg', 'zapdos.jpg']
     $(document).ready(function() {
         game_board();
@@ -54,10 +53,6 @@
         var card_front = '#card_front' + card_number;
         var card_back = '#card_back' + card_number;
 
-        if (start_time == null) {
-            start_time = new Date;
-            console.log(start_time)
-        }
         if (can_click == false) {
             console.log("disallow clicking")
             return;
@@ -139,37 +134,47 @@
         accuracy = 0;
         $('.attempts').html('000')
         $('.accuracy').html('100%')
+        $('.time').html('0:0:0')
         $(".card").hide('slow');
         $(".start_game").show('slow');
         $('.game-area').html('');
+        timeArray = [0,0,0]
+        timeStart = false;
         game_board();
     }
 
     function game_start() {
         $(".start_game").hide('slow');
         $(".card").show('slow');
+        timeStart = true;
     }
 
-    function secondPassed() {
-        var minutes = Math.round(seconds / 60);
-        var remainingSeconds = seconds % 60;
-        if (seconds > 59 && remainingSeconds > 9) {
-            seconds++;
-            $('#countdown').html(minutes + ":" + remainingSeconds);
-        } else if (seconds > 59) {
-            seconds++;
-            $('#countdown').html(minutes + ":0" + remainingSeconds);
-        } else if (seconds > 9) {
-            ++seconds;
-            $('#countdown').html("0:" + seconds);
-        } else if (seconds >= 0) {
-            seconds++;
-            $('#countdown').html("0:0" + seconds);
-
+    setInterval(function startTime() {
+        if(timeStart)
+        timeArray[2]++;
+        //if seconds > 59 increments minutes by 1
+        if(timeArray[2] > 59){
+            timeArray[1]++;
+            timeArray[2] = 0;
+            //if minutes > 59 increments hours by 1
+            if(timeArray[1] > 59){
+                timeArray[0]++;
+                timeArray[1] = 0;
+            }
         }
-    }
+        //updates timer on webpage
+        $('.time').html(timeArray[0] + ":" + timeArray[1] + ":" + timeArray[2])
+        //recalls this function in 1 sec
+    }, 1000);
 
-    var countdownTimer = setInterval('secondPassed()', 1000);
+
+//pads numbers less than 10 for timer
+function checkTime(i) {
+    if (i < 10) {
+        i = "0" + i;
+    }
+    return i;
+}
     </script>
 </head>
 
@@ -190,7 +195,7 @@
     <div class="game-info">
         <h1>Stats:</h1>
         <p>Time played:</p>
-        <div id="countdown" class="time">0:00</div>
+        <div class="time">0:0:0</div>
         <p>Number of tries:</p>
         <div class="attempts">000</div>
         <p>Accuracy:</p>
