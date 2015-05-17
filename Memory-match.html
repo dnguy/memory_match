@@ -6,286 +6,275 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script>
-        var my_card = null;
-        var can_click = true;
-        var attempts = 0;
-        var successful_attempts = 0;
-        var accuracy = 0.0;
-        var seconds = 0;
-        var start_time = null;
-        var end_time = null;
-        //make a global variable indicating I can click again
-        function card_click(card_number){
-            //if the global click variable is false, return
-            if (start_time == null) {
-                start_time = new Date;
-                console.log(start_time)
+    var my_card = null;
+    var can_click = true;
+    var attempts = 0;
+    var successful_attempts = 0;
+    var accuracy = 0.0;
+    var seconds = 0;
+    var start_time = null;
+    var end_time = null;
+    var imgArray = ['charizard.png', 'charizard.png', 'pikachu.jpeg', 'pikachu.jpeg', 'snorlax.jpg', 'snorlax.jpg', 'mewtwo.png', 'mewtwo.png', 'venusaur.jpg', 'venusaur.jpg', 'blastoise.jpeg', 'blastoise.jpeg', 'meowth.jpeg', 'meowth.jpeg', 'jigglypuff.jpeg', 'jigglypuff.jpeg', 'zapdos.jpg', 'zapdos.jpg']
+    $(document).ready(function() {
+        game_board();
+    });
+
+    function game_board(){
+        shuffle(imgArray);
+        for (var i = 0; i < imgArray.length; i++) {
+            var img = $('<img>').attr('src', 'images/' + imgArray[i]).addClass('card card-front').attr('id', 'card_front' + (i + 1)).attr('data-card', imgArray[i]);
+            var img_back = $('<img>').attr('src', 'images/back-card.jpeg').addClass('card card-back').attr('id', 'card_back' + (i + 1)).attr('onclick', 'card_click(' + (i + 1) + ')');
+            var game_cards = $('<div>').addClass('card_container').attr('id', 'card_container' + (i + 1));
+            $(game_cards).append(img, img_back);
+            $('.game-area').append(game_cards);
+        }
+    }
+
+    function shuffle(array) {
+        var currentIndex = array.length,
+            temporaryValue, randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+
+        return array;
+    }
+
+    function card_click(card_number) {
+        var card_front = '#card_front' + card_number;
+        var card_back = '#card_back' + card_number;
+
+        if (start_time == null) {
+            start_time = new Date;
+            console.log(start_time)
+        }
+        if (can_click == false) {
+            console.log("disallow clicking")
+            return;
+        }
+        $(card_back).toggleClass('card_back_selected');
+        $(card_front).toggleClass('card_front_selected');
+        if (my_card == null) {
+
+            console.log('first card was clicked, on card1, it was ' + $(card_front).attr('data-card'));
+            my_card = $(card_front).attr('data-card');
+            can_click = false;
+            setTimeout(function() {
+                can_click = true;
+            }, 600);
+
+
+        } else {
+            attempts = attempts + 1;
+            if (attempts > 0) {
+                console.log('attempts is equal to : ' + attempts)
+                $('.attempts').html(attempts);
             }
-            if(can_click == false){
-                console.log("disallow clicking")
-                return;
-            }//toggles the cards chosen to new classes which will reveal the animation of card flipping.
-            $('#card_back'+card_number).toggleClass('card_back_selected');
-            $('#card_front'+card_number).toggleClass('card_front_selected');
-                //If conditional checking if my_card==null to let the program know if this is the first card chosen.
-                if(my_card==null)
-                {   
-                    
-                    console.log('first card was clicked, on card1, it was '+$('#card_front' + card_number).attr('data-card'));
-                    //if my_card was equal to null then the variable my_card is now set equal to the attr. of the card that was clicked.
-                    my_card = $('#card_front' + card_number).attr('data-card');
-                    //turning off click because i was able to create a "match" by constantly clicking very quickly on the first card. 
-                    can_click=false;
-                        setTimeout(function(){
-                            can_click=true;
-                        },600);
-
-                    
+            console.log('second card was clicked, it was card 1, it was ' + $(card_front).attr('data-card'));
+            if (my_card == $(card_front).attr('data-card')) {
+                console.log('they match');
+                successful_attempts += 1;
+                if (successful_attempts > 0) {
+                    accuracy = (successful_attempts / attempts * 100);
+                    var a = accuracy.toFixed(0);
+                    $('.accuracy').html(a + '%');
                 }
-                else 
-                {   //adds + 1 to the var attempts which will be used later when calcuated number of tries and accuracy.
-                    attempts = attempts + 1;
-                    //conditional statement that checks if the number of attemps is greater than 0.
-                    if (attempts > 0) {
-                    //if attempts is greater than 0 then it will log to the console how many attempts have occurred.
-                    console.log('attempts is equal to : ' + attempts)
-                    //jQuery selector which will change the the html .attempts with the variable attempts.
-                    $('.attempts').html(attempts);
-                    }
-                    //logging to console that the second card was clicked and what attr. the card was.
-                    console.log('second card was clicked, it was card 1, it was '+$('#card_front' + card_number).attr('data-card'));
-                    //conditional statement checking if the second card attr. was equal to the first card attr.
-                    if(my_card == $('#card_front' + card_number).attr('data-card')){
-                        //logging to the console that both cards have a matching my_card variable.
-                        console.log('they match');
-                        //adding 1 to successful_attempts variable which occurs everytime there is a match.
-                        successful_attempts += 1;
-                        //conditional statement checking to see if the variable successful_attempts is greater than 0.
-                        if (successful_attempts > 0) {
-                        //if successful_attempts is greater than 0 then the accuracy variable calculates the number of successful_attempts divided by the number of attempts and multiplies by 100 to get a percentage.
-                        accuracy = (successful_attempts/attempts * 100);
-                        //var a converts the variable accuracy to have no decimals.
-                        var a = accuracy.toFixed(0);
-                        //jQuery selector to add the variable a with '%' to the html class .accuracy.
-                        $('.accuracy').html(a + '%');
-                    }   //setting can_click equal to false so that no clicking can occur during the setTimeout function. 
-                        can_click=false;
-                        //created this setTimeout function so that the cards were not disappearing too fast after being matched. Gives the player a chance to see the matched cards before they fade out.
-                        setTimeout(function(){
-                            $('.card_front_selected').addClass('card-match-front');
-                        $('.card_back_selected').addClass('card-match-back');
-                            can_click=true;
-                        }, 900);
-                        if (successful_attempts == 9) {
-                            end_time = new Date;
-                            console.log(end_time);
-                            function getElapsedTime(){
-                                if (end_time != null)
-                                    console.log(end_time-start_time);
-                            }
+                can_click = false;
+                setTimeout(function() {
+                    $('.card_front_selected').addClass('card-match-front');
+                    $('.card_back_selected').addClass('card-match-back');
+                    can_click = true;
+                }, 900);
+                if (successful_attempts == 9) {
+                    end_time = new Date;
+                    console.log(end_time);
 
-                            setTimeout(function(){
-                            alert("Congratulations! You are now a Pokemon Master!")
-                        }, 1400);
-                        }
-                        
+                    function getElapsedTime() {
+                        if (end_time != null)
+                            console.log(end_time - start_time);
                     }
-                    else{
-                        //sets can_click equal to false to that you are not allowed to click again until both cards flip back over.
-                        can_click=false;
-                        //conditional statement that checks to see if successful_attempts is equal to or greater than 0.
-                        if (successful_attempts >= 0) {
-                        //if greater than or equal to zero then the variable accuracy will be set equal to successful_attempts divided by attempts and logged into .accuracy html.
-                        accuracy = (successful_attempts/attempts * 100);
-                        var a = accuracy.toFixed(0);
-                        $('.accuracy').html(a + '%');
-                        }
-                        console.log('they do not match');
-                        //timeout function used so the mismatched cards are not immediately flipped back.
-                        setTimeout(function(){
-                            $('.card_front_selected').removeClass('card_front_selected');
-                            $('.card_back_selected').removeClass('card_back_selected');
-                            can_click=true;
-                        }, 1000);
 
-                }   //sets my_card variable back to null so the next "first" card choice will be stored into the my_card variable.
-                    my_card = null
+                    setTimeout(function() {
+                        alert("Congratulations! You are now a Pokemon Master!")
+                    }, 1400);
                 }
+
+            } else {
+                can_click = false;
+                if (successful_attempts >= 0) {
+                    accuracy = (successful_attempts / attempts * 100);
+                    var a = accuracy.toFixed(0);
+                    $('.accuracy').html(a + '%');
+                }
+                console.log('they do not match');
+                setTimeout(function() {
+                    $('.card_front_selected').removeClass('card_front_selected');
+                    $('.card_back_selected').removeClass('card_back_selected');
+                    can_click = true;
+                }, 1000);
+
+            }
+            my_card = null
         }
-        function gameReset() {
-            //removes all classes that have a css flip effect so that all cards will be flipped back when reset.
-            $('.card-match-front').removeClass('card-match-front');
-            $('.card-match-back').removeClass('card-match-back');
-            $('.card_front_selected').removeClass('card_front_selected');
-            $('.card_back_selected').removeClass('card_back_selected');
-            my_card=null
-            successful_attempts = 0;
-            attempts = 0;
-            accuracy = 0;
-            $('.attempts').html('000')
-            $('.accuracy').html('100%')
-            $(".card").hide('slow');
-            $(".start_game").show('slow');
+    }
+
+    function gameReset() {
+        $('.card-match-front').removeClass('card-match-front');
+        $('.card-match-back').removeClass('card-match-back');
+        $('.card_front_selected').removeClass('card_front_selected');
+        $('.card_back_selected').removeClass('card_back_selected');
+        my_card = null
+        successful_attempts = 0;
+        attempts = 0;
+        accuracy = 0;
+        $('.attempts').html('000')
+        $('.accuracy').html('100%')
+        $(".card").hide('slow');
+        $(".start_game").show('slow');
+        $('.game-area').html('');
+        game_board();
+    }
+
+    function game_start() {
+        $(".start_game").hide('slow');
+        $(".card").show('slow');
+    }
+
+    function secondPassed() {
+        var minutes = Math.round(seconds / 60);
+        var remainingSeconds = seconds % 60;
+        if (seconds > 59 && remainingSeconds > 9) {
+            seconds++;
+            $('#countdown').html(minutes + ":" + remainingSeconds);
+        } else if (seconds > 59) {
+            seconds++;
+            $('#countdown').html(minutes + ":0" + remainingSeconds);
+        } else if (seconds > 9) {
+            ++seconds;
+            $('#countdown').html("0:" + seconds);
+        } else if (seconds >= 0) {
+            seconds++;
+            $('#countdown').html("0:0" + seconds);
+
         }
-        
-        function game_start(){
-    $(".start_game").hide('slow');
-    $(".card").show('slow');
-}
-
-function secondPassed() {
-    var minutes = Math.round(seconds/60);
-    var remainingSeconds = seconds % 60;
-         if(seconds > 59 && remainingSeconds > 9){
-        seconds++;
-        $('#countdown').html(minutes + ":" + remainingSeconds);
-    }
-    else if (seconds > 59){
-        seconds++;
-        $('#countdown').html(minutes + ":0" + remainingSeconds);
     }
 
-    else if(seconds >9){
-        ++seconds;
-        $('#countdown').html("0:" + seconds);
-    }
-
-    else if (seconds >= 0) {
-        seconds++;
-        $('#countdown').html("0:0" + seconds);
-
-    }
-}
- 
-var countdownTimer = setInterval('secondPassed()', 1000);
-        
-        </script>
+    var countdownTimer = setInterval('secondPassed()', 1000);
+    </script>
 </head>
 
 <body>
-<audio autoplay>
-    <source src="pokemon.mp3" type="audio/mpeg">
-</audio>
-<img class="background_image" src="images/pokeball.png">
+    <audio autoplay>
+        <source src="pokemon.mp3" type="audio/mpeg">
+    </audio>
+    <img class="background_image" src="images/pokeball.png">
     <div class="header">
         <div class="game-logo">
-                <img class="pikachu-logo" src="images/pikachu-logo.png">
-                <img class="charmander-logo" src="images/charmander-logo.png">
-                <img class="squirtle-logo" src="images/squirtle-logo.png">
-            
+            <img class="pikachu-logo" src="images/pikachu-logo.png">
+            <img class="charmander-logo" src="images/charmander-logo.png">
+            <img class="squirtle-logo" src="images/squirtle-logo.png">
         </div>
         <h1> Pokemon: Gotta Match Em' All</h1>
         <button class="reset" onclick="gameReset()">Reset Game</button>
-
     </div>
     <div class="game-info">
         <h1>Stats:</h1>
         <p>Time played:</p>
         <div id="countdown" class="time">0:00</div>
-        <p >Number of tries:</p>
+        <p>Number of tries:</p>
         <div class="attempts">000</div>
         <p>Accuracy:</p>
         <div class="accuracy">100%</div>
     </div>
     <div onclick="game_start()" class="start_game">
-    <p>Click to release the Pokemon!</p>
-    <img class="pokeball" src="images/pokeball_start.png">
+        <p>Click to release the Pokemon!</p>
+        <img class="pokeball" src="images/pokeball_start.png">
     </div>
     <div class="game-area">
-         <div class="card_container" id="card_container1">
-                    <img src="images/charizard.png" class="card card-front" id="card_front1" data-card="charizard">
-                    <img src="images/back-card.jpeg" class="card card-back" id="card_back1" 
-                    onclick="card_click(1)">
-                       
-                </div>
-                <div class="card_container" id="card_container2">
-                    <img src="images/charizard.png" class="card card-front" id="card_front2" data-card="charizard">
-                    <img src="images/back-card.jpeg" class="card card-back" id="card_back2" 
-                    onclick="card_click(2)">
-                    </div>
-
-                    <div class="card_container" id="card_container3">
-                    <img src="images/pikachu.jpeg" class="card card-front" id="card_front3" data-card="pikachu">
-                    <img src="images/back-card.jpeg" class="card card-back" id="card_back3" 
-                    onclick="card_click(3)">
-                    </div>
-                     <div class="card_container" id="card_container4">
-                    <img src="images/pikachu.jpeg" class="card card-front" id="card_front4" data-card="pikachu">
-                    <img src="images/back-card.jpeg" class="card card-back" id="card_back4" 
-                    onclick="card_click(4)">
-                    </div>
-                    <div class="card_container" id="card_container5">
-                    <img src="images/snorlax.jpg" class="card card-front" id="card_front5" data-card="snorlax">
-                    <img src="images/back-card.jpeg" class="card card-back" id="card_back5" 
-                    onclick="card_click(5)">
-                    </div>
-                    <div class="card_container" id="card_container6">
-                    <img src="images/snorlax.jpg" class="card card-front" id="card_front6" data-card="snorlax">
-                    <img src="images/back-card.jpeg" class="card card-back" id="card_back6" 
-                    onclick="card_click(6)">
-                    </div>
-                    <div class="card_container" id="card_container7">
-                    <img src="images/mewtwo.png" class="card card-front" id="card_front7" data-card="mewtwo">
-                    <img src="images/back-card.jpeg" class="card card-back" id="card_back7" 
-                    onclick="card_click(7)">
-                    </div>
-                    <div class="card_container" id="card_container8">
-                    <img src="images/mewtwo.png" class="card card-front" id="card_front8" data-card="mewtwo">
-                    <img src="images/back-card.jpeg" class="card card-back" id="card_back8" 
-                    onclick="card_click(8)">
-                    </div>
-                    <div class="card_container" id="card_container9">
-                    <img src="images/venusaur.jpg" class="card card-front" id="card_front9" data-card="venusaur">
-                    <img src="images/back-card.jpeg" class="card card-back" id="card_back9" 
-                    onclick="card_click(9)">
-                    </div>
-                    <div class="card_container" id="card_containe10">
-                    <img src="images/venusaur.jpg" class="card card-front" id="card_front10" data-card="venusaur">
-                    <img src="images/back-card.jpeg" class="card card-back" id="card_back10" 
-                    onclick="card_click(10)">
-                    </div>
-                    <div class="card_container" id="card_container11">
-                    <img src="images/blastoise.jpeg" class="card card-front" id="card_front11" data-card="blastoise">
-                    <img src="images/back-card.jpeg" class="card card-back" id="card_back11" 
-                    onclick="card_click(11)">
-                    </div>
-                    <div class="card_container" id="card_container12">
-                    <img src="images/blastoise.jpeg" class="card card-front" id="card_front12" data-card="blastoise">
-                    <img src="images/back-card.jpeg" class="card card-back" id="card_back12" 
-                    onclick="card_click(12)">
-                    </div>
-                    <div class="card_container" id="card_container13">
-                    <img src="images/meowth.jpeg" class="card card-front" id="card_front13" data-card="meowth">
-                    <img src="images/back-card.jpeg" class="card card-back" id="card_back13" 
-                    onclick="card_click(13)">
-                    </div>
-                    <div class="card_container" id="card_container14">
-                    <img src="images/meowth.jpeg" class="card card-front" id="card_front14" data-card="meowth">
-                    <img src="images/back-card.jpeg" class="card card-back" id="card_back14" 
-                    onclick="card_click(14)">
-                    </div>
-                    <div class="card_container" id="card_container15">
-                    <img src="images/jigglypuff.jpeg" class="card card-front" id="card_front15" data-card="jigglypuff">
-                    <img src="images/back-card.jpeg" class="card card-back" id="card_back15" 
-                    onclick="card_click(15)">
-                    </div>
-                    <div class="card_container" id="card_container16">
-                    <img src="images/jigglypuff.jpeg" class="card card-front" id="card_front16" data-card="jigglypuff">
-                    <img src="images/back-card.jpeg" class="card card-back" id="card_back16" 
-                    onclick="card_click(16)">
-                    </div>
-                    <div class="card_container" id="card_container17">
-                    <img src="images/zapdos.jpg" class="card card-front" id="card_front17" data-card="zapdos">
-                    <img src="images/back-card.jpeg" class="card card-back" id="card_back17" 
-                    onclick="card_click(17)">
-                    </div>
-                    <div class="card_container" id="card_container18">
-                    <img src="images/zapdos.jpg" class="card card-front" id="card_front18" data-card="zapdos">
-                    <img src="images/back-card.jpeg" class="card card-back" id="card_back18" 
-                    onclick="card_click(18)">
-                    </div>
-                    </div>
+        <!-- <div class="card_container" id="card_container1">
+            <img src="images/charizard.png" class="card card-front" id="card_front1" data-card="charizard">
+            <img src="images/back-card.jpeg" class="card card-back" id="card_back1" onclick="card_click(1)">
         </div>
+        <div class="card_container" id="card_container2">
+            <img src="images/charizard.png" class="card card-front" id="card_front2" data-card="charizard">
+            <img src="images/back-card.jpeg" class="card card-back" id="card_back2" onclick="card_click(2)">
+        </div>
+        <div class="card_container" id="card_container3">
+            <img src="images/pikachu.jpeg" class="card card-front" id="card_front3" data-card="pikachu">
+            <img src="images/back-card.jpeg" class="card card-back" id="card_back3" onclick="card_click(3)">
+        </div>
+        <div class="card_container" id="card_container4">
+            <img src="images/pikachu.jpeg" class="card card-front" id="card_front4" data-card="pikachu">
+            <img src="images/back-card.jpeg" class="card card-back" id="card_back4" onclick="card_click(4)">
+        </div>
+        <div class="card_container" id="card_container5">
+            <img src="images/snorlax.jpg" class="card card-front" id="card_front5" data-card="snorlax">
+            <img src="images/back-card.jpeg" class="card card-back" id="card_back5" onclick="card_click(5)">
+        </div>
+        <div class="card_container" id="card_container6">
+            <img src="images/snorlax.jpg" class="card card-front" id="card_front6" data-card="snorlax">
+            <img src="images/back-card.jpeg" class="card card-back" id="card_back6" onclick="card_click(6)">
+        </div>
+        <div class="card_container" id="card_container7">
+            <img src="images/mewtwo.png" class="card card-front" id="card_front7" data-card="mewtwo">
+            <img src="images/back-card.jpeg" class="card card-back" id="card_back7" onclick="card_click(7)">
+        </div>
+        <div class="card_container" id="card_container8">
+            <img src="images/mewtwo.png" class="card card-front" id="card_front8" data-card="mewtwo">
+            <img src="images/back-card.jpeg" class="card card-back" id="card_back8" onclick="card_click(8)">
+        </div>
+        <div class="card_container" id="card_container9">
+            <img src="images/venusaur.jpg" class="card card-front" id="card_front9" data-card="venusaur">
+            <img src="images/back-card.jpeg" class="card card-back" id="card_back9" onclick="card_click(9)">
+        </div>
+        <div class="card_container" id="card_containe10">
+            <img src="images/venusaur.jpg" class="card card-front" id="card_front10" data-card="venusaur">
+            <img src="images/back-card.jpeg" class="card card-back" id="card_back10" onclick="card_click(10)">
+        </div>
+        <div class="card_container" id="card_container11">
+            <img src="images/blastoise.jpeg" class="card card-front" id="card_front11" data-card="blastoise">
+            <img src="images/back-card.jpeg" class="card card-back" id="card_back11" onclick="card_click(11)">
+        </div>
+        <div class="card_container" id="card_container12">
+            <img src="images/blastoise.jpeg" class="card card-front" id="card_front12" data-card="blastoise">
+            <img src="images/back-card.jpeg" class="card card-back" id="card_back12" onclick="card_click(12)">
+        </div>
+        <div class="card_container" id="card_container13">
+            <img src="images/meowth.jpeg" class="card card-front" id="card_front13" data-card="meowth">
+            <img src="images/back-card.jpeg" class="card card-back" id="card_back13" onclick="card_click(13)">
+        </div>
+        <div class="card_container" id="card_container14">
+            <img src="images/meowth.jpeg" class="card card-front" id="card_front14" data-card="meowth">
+            <img src="images/back-card.jpeg" class="card card-back" id="card_back14" onclick="card_click(14)">
+        </div>
+        <div class="card_container" id="card_container15">
+            <img src="images/jigglypuff.jpeg" class="card card-front" id="card_front15" data-card="jigglypuff">
+            <img src="images/back-card.jpeg" class="card card-back" id="card_back15" onclick="card_click(15)">
+        </div>
+        <div class="card_container" id="card_container16">
+            <img src="images/jigglypuff.jpeg" class="card card-front" id="card_front16" data-card="jigglypuff">
+            <img src="images/back-card.jpeg" class="card card-back" id="card_back16" onclick="card_click(16)">
+        </div>
+        <div class="card_container" id="card_container17">
+            <img src="images/zapdos.jpg" class="card card-front" id="card_front17" data-card="zapdos">
+            <img src="images/back-card.jpeg" class="card card-back" id="card_back17" onclick="card_click(17)">
+        </div>
+        <div class="card_container" id="card_container18">
+            <img src="images/zapdos.jpg" class="card card-front" id="card_front18" data-card="zapdos">
+            <img src="images/back-card.jpeg" class="card card-back" id="card_back18" onclick="card_click(18)">
+        </div> -->
+    </div>
+    </div>
     </div>
 </body>
 
