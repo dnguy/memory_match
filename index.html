@@ -3,8 +3,9 @@
 
 <head>
     <title>Memory Match Game</title>
-    <link rel="stylesheet" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="style.css">
     <script>
     var my_card = null;
     var can_click = true;
@@ -138,7 +139,7 @@
         $(".card").hide('slow');
         $(".start_game").show('slow');
         $('.game-area').html('');
-        timeArray = [0,0,0]
+        timeArray = [0, 0, 0]
         timeStart = false;
         game_board();
     }
@@ -150,40 +151,31 @@
     }
 
     setInterval(function startTime() {
-        if(timeStart)
-        timeArray[2]++;
+        if (timeStart)
+            timeArray[2]++;
         //if seconds > 59 increments minutes by 1
-        if(timeArray[2] > 59){
+        if (timeArray[2] > 59) {
             timeArray[1]++;
             timeArray[2] = 0;
             //if minutes > 59 increments hours by 1
-            if(timeArray[1] > 59){
+            if (timeArray[1] > 59) {
                 timeArray[0]++;
                 timeArray[1] = 0;
             }
         }
         //updates timer on webpage
         $('.time').html(timeArray[0] + ":" + timeArray[1] + ":" + timeArray[2])
-        //recalls this function in 1 sec
+            //recalls this function in 1 sec
     }, 1000);
-
-
-//pads numbers less than 10 for timer
-function checkTime(i) {
-    if (i < 10) {
-        i = "0" + i;
-    }
-    return i;
-}
     </script>
 </head>
 
 <body>
-    <audio autoplay>
+   <!--  <audio autoplay>
         <source src="pokemon.mp3" type="audio/mpeg">
-    </audio>
+    </audio> -->
     <img class="background_image" src="images/pokeball.png">
-    <div class="header">
+    <div class="header col-md-8 col-md-offset-2">
         <div class="game-logo">
             <img class="pikachu-logo" src="images/pikachu-logo.png">
             <img class="charmander-logo" src="images/charmander-logo.png">
@@ -192,7 +184,7 @@ function checkTime(i) {
         <h1> Pokemon: Gotta Match Em' All</h1>
         <button class="reset" onclick="gameReset()">Reset Game</button>
     </div>
-    <div class="game-info">
+    <div class="game-info col-md-2">
         <h1>Stats:</h1>
         <p>Time played:</p>
         <div class="time">0:0:0</div>
@@ -205,7 +197,7 @@ function checkTime(i) {
         <p>Click to release the Pokemon!</p>
         <img class="pokeball" src="images/pokeball_start.png">
     </div>
-    <div class="game-area">
+    <div class="game-area col-md-8">
     </div>
     </div>
     </div>
