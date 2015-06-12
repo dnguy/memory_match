@@ -1,4 +1,6 @@
-
+body{
+  background: rgb(234,255,215);;
+}
 .background_image {
 position:absolute;
 width: 1263px;
